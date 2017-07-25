@@ -8,25 +8,29 @@ import java.util.Random;
 import java.util.stream.IntStream;
 
 public class NRPProblem extends AbstractBinaryProblem {
-  private long randomSeed;
   private int numberOfRequirements ;
   private int highestClientSatisfactionValue ;
   private int highestRequirementCost ;
   private int numberOfClients ;
+  private int highestImportanceValue ;
+  private long randomSeed;
 
   private int requirements [] ;
   private int clientSatisfaction[] ;
+  private int importanceMatrix[][] ;
 
   public NRPProblem(
           int numberOfClients,
           int numberOfRequirements,
-          int highestRequirementCost,
           int highestClientSatisfactionValue,
+          int highestRequirementCost,
+          int highestImportanceValue,
           long randomSeed) {
     this.numberOfClients = numberOfClients ;
     this.numberOfRequirements = numberOfRequirements ;
     this.highestRequirementCost = highestRequirementCost ;
     this.highestClientSatisfactionValue = highestClientSatisfactionValue ;
+    this.highestImportanceValue = highestImportanceValue ;
     this.randomSeed = randomSeed ;
 
     this.setNumberOfVariables(1);
@@ -39,6 +43,19 @@ public class NRPProblem extends AbstractBinaryProblem {
     IntStream
             .range(0, this.numberOfRequirements)
             .forEach(i -> this.requirements[i] = random.nextInt(this.highestRequirementCost) + 1) ;
+
+    this.clientSatisfaction = new int[this.numberOfClients] ;
+    IntStream
+            .range(0, this.highestClientSatisfactionValue)
+            .forEach(i -> this.clientSatisfaction[i] =
+                    random.nextInt(this.highestClientSatisfactionValue) + 1);
+
+    this.importanceMatrix = new int[this.numberOfClients][this.numberOfRequirements] ;
+    for (int i = 0 ; i < this.numberOfClients; i++) {
+      for (int j = 0 ; j < this.numberOfRequirements; j++) {
+        this.importanceMatrix[i][j] = random.nextInt(this.highestImportanceValue+1) ;
+      }
+    }
   }
 
   @Override
@@ -49,5 +66,41 @@ public class NRPProblem extends AbstractBinaryProblem {
   @Override
   public void evaluate(BinarySolution binarySolution) {
 
+  }
+
+  public int getNumberOfRequirements() {
+    return numberOfRequirements;
+  }
+
+  public int getHighestClientSatisfactionValue() {
+    return highestClientSatisfactionValue;
+  }
+
+  public int getHighestRequirementCost() {
+    return highestRequirementCost;
+  }
+
+  public int getNumberOfClients() {
+    return numberOfClients;
+  }
+
+  public int getHighestImportanceValue() {
+    return highestImportanceValue;
+  }
+
+  public long getRandomSeed() {
+    return randomSeed;
+  }
+
+  public int[] getRequirements() {
+    return requirements;
+  }
+
+  public int[] getClientSatisfaction() {
+    return clientSatisfaction;
+  }
+
+  public int[][] getImportanceMatrix() {
+    return importanceMatrix;
   }
 }
