@@ -16,7 +16,6 @@ import org.uma.jmetal.util.comparator.RankingAndCrowdingDistanceComparator;
 import org.uma.jmetal.util.fileoutput.SolutionListOutput;
 import org.uma.jmetal.util.fileoutput.impl.DefaultFileOutputContext;
 
-import java.io.FileNotFoundException;
 import java.util.List;
 
 /**
@@ -28,11 +27,10 @@ public class NSGAIIRunner {
   /**
    * @param args Command line arguments.
    * @throws JMetalException
-   * @throws FileNotFoundException
    * Invoking command:
-    java org.uma.jmetal.runner.multiobjective.NSGAIIRunner problemName [referenceFront]
+    java org.uma.jmetal.runner.multiobjective.NSGAIIRunner
    */
-  public static void main(String[] args) throws JMetalException, FileNotFoundException {
+  public static void main(String[] args) throws JMetalException {
     Algorithm<List<BinarySolution>> algorithm;
     CrossoverOperator<BinarySolution> crossover;
     MutationOperator<BinarySolution> mutation;
@@ -58,10 +56,10 @@ public class NSGAIIRunner {
     double mutationProbability = 1.0 / numberOfRequirements ;
     mutation = new BitFlipMutation(mutationProbability) ;
 
-    selection = new BinaryTournamentSelection<BinarySolution>(
-        new RankingAndCrowdingDistanceComparator<BinarySolution>());
+    selection = new BinaryTournamentSelection<>(
+        new RankingAndCrowdingDistanceComparator<>());
 
-    algorithm = new NSGAIIBuilder<BinarySolution>(problem, crossover, mutation)
+    algorithm = new NSGAIIBuilder<>(problem, crossover, mutation)
         .setSelectionOperator(selection)
         .setMaxEvaluations(25000)
         .setPopulationSize(100)
