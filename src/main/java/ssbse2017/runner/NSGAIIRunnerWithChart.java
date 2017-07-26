@@ -1,4 +1,4 @@
-package ssbse2017;
+package ssbse2017.runner;
 
 import org.uma.jmetal.algorithm.multiobjective.nsgaii.NSGAIIBuilder;
 import org.uma.jmetal.algorithm.multiobjective.nsgaii.NSGAIIMeasures;
@@ -13,7 +13,6 @@ import org.uma.jmetal.operator.impl.crossover.SinglePointCrossover;
 import org.uma.jmetal.operator.impl.mutation.BitFlipMutation;
 import org.uma.jmetal.operator.impl.selection.BinaryTournamentSelection;
 import org.uma.jmetal.solution.BinarySolution;
-import org.uma.jmetal.solution.DoubleSolution;
 import org.uma.jmetal.util.AlgorithmRunner;
 import org.uma.jmetal.util.JMetalException;
 import org.uma.jmetal.util.JMetalLogger;
@@ -24,6 +23,9 @@ import org.uma.jmetal.util.point.impl.ArrayPoint;
 
 import java.io.FileNotFoundException;
 import java.util.List;
+
+import ssbse2017.util.ChartContainer;
+import ssbse2017.NRPProblem;
 
 /**
  * Class to configure and run the NSGA-II algorithm
@@ -59,7 +61,7 @@ public class NSGAIIRunnerWithChart {
     double crossoverProbability = 0.9;
     crossover = new SinglePointCrossover(crossoverProbability);
 
-    double mutationProbability = 1.0 / numberOfRequirements;
+    double mutationProbability = 1.0 / problem.getTotalNumberOfBits();
     mutation = new BitFlipMutation(mutationProbability);
 
     selection = new BinaryTournamentSelection<BinarySolution>(
@@ -73,6 +75,7 @@ public class NSGAIIRunnerWithChart {
             .build();
 
 
+
     Front referenceFront = new ArrayFront(1, 2) ;
     double[] referencePoint = {3600, 0} ;
     referenceFront.setPoint(0, new ArrayPoint(referencePoint));
@@ -81,8 +84,8 @@ public class NSGAIIRunnerWithChart {
             /* Measure management */
     MeasureManager measureManager = ((NSGAIIMeasures<BinarySolution>) algorithm).getMeasureManager();
 
-    BasicMeasure<List<DoubleSolution>> solutionListMeasure = (BasicMeasure<List<DoubleSolution>>) measureManager
-            .<List<DoubleSolution>>getPushMeasure("currentPopulation");
+    BasicMeasure<List<BinarySolution>> solutionListMeasure = (BasicMeasure<List<BinarySolution>>) measureManager
+            .<List<BinarySolution>>getPushMeasure("currentPopulation");
     CountingMeasure iterationMeasure = (CountingMeasure) measureManager.<Long>getPushMeasure("currentEvaluation");
 
     ChartContainer chart = new ChartContainer(algorithm.getName(), 100);
@@ -105,7 +108,7 @@ public class NSGAIIRunnerWithChart {
 
   }
 
-  private static class ChartListener implements MeasureListener<List<DoubleSolution>> {
+  private static class ChartListener implements MeasureListener<List<BinarySolution>> {
     private ChartContainer chart;
     private int iteration = 0;
 
@@ -114,7 +117,7 @@ public class NSGAIIRunnerWithChart {
       this.chart.getFrontChart().setTitle("Iteration: " + this.iteration);
     }
 
-    private void refreshChart(List<DoubleSolution> solutionList) {
+    private void refreshChart(List<BinarySolution> solutionList) {
       if (this.chart != null) {
         iteration++;
         this.chart.getFrontChart().setTitle("Iteration: " + this.iteration);
@@ -124,7 +127,7 @@ public class NSGAIIRunnerWithChart {
     }
 
     @Override
-    synchronized public void measureGenerated(List<DoubleSolution> solutions) {
+    synchronized public void measureGenerated(List<BinarySolution> solutions) {
       refreshChart(solutions);
     }
   }

@@ -1,4 +1,4 @@
-package ssbse2017;
+package ssbse2017.runner;
 
 import org.uma.jmetal.algorithm.Algorithm;
 import org.uma.jmetal.algorithm.multiobjective.nsgaii.NSGAIIBuilder;
@@ -17,6 +17,8 @@ import org.uma.jmetal.util.fileoutput.SolutionListOutput;
 import org.uma.jmetal.util.fileoutput.impl.DefaultFileOutputContext;
 
 import java.util.List;
+
+import ssbse2017.NRPProblem;
 
 /**
  * Class to configure and run the NSGA-II algorithm

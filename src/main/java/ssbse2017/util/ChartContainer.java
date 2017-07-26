@@ -1,4 +1,4 @@
-package ssbse2017;
+package ssbse2017.util;
 
 import org.knowm.xchart.BitmapEncoder;
 import org.knowm.xchart.BitmapEncoder.BitmapFormat;
