@@ -1,16 +1,4 @@
 
-
-
-
-//
-
-
-
-
-//
-
-
-
 package ssbse2017.experiment;
 
 import org.uma.jmetal.algorithm.Algorithm;
@@ -76,7 +64,7 @@ import ssbse2017.NRPProblem;
  * @author Antonio J. Nebro <antonio@lcc.uma.es>
  */
 public class NRPProblemsStudy {
-  private static final int INDEPENDENT_RUNS = 5;
+  private static final int INDEPENDENT_RUNS = 10;
 
   public static void main(String[] args) throws IOException {
     if (args.length != 1) {
@@ -84,23 +72,39 @@ public class NRPProblemsStudy {
     }
     String experimentBaseDirectory = args[0];
 
-    int numberOfClients = 20 ;
-    int numberOfRequirements = 30 ;
+    int numberOfClients = 15 ;
+    int numberOfRequirements = 40 ;
     int highestClientSatisfactionValue = 10 ;
     int highestRequirementCost = 200 ;
     int highestImportanceValue = 100 ;
     int randomSeed = 1 ;
     NRPProblem problem1 = new NRPProblem(
-            numberOfClients,
-            numberOfRequirements,
+            15,
+            40,
             highestClientSatisfactionValue,
             highestRequirementCost,
             highestImportanceValue,
             randomSeed) ;
 
     NRPProblem problem2 = new NRPProblem(
-            numberOfClients,
+            50,
+            80,
+            highestClientSatisfactionValue,
+            highestRequirementCost,
+            highestImportanceValue,
+            randomSeed) ;
+
+    NRPProblem problem3 = new NRPProblem(
+            100,
+            140,
+            highestClientSatisfactionValue,
+            highestRequirementCost,
+            highestImportanceValue,
+            randomSeed) ;
+
+    NRPProblem problem4 = new NRPProblem(
             200,
+            300,
             highestClientSatisfactionValue,
             highestRequirementCost,
             highestImportanceValue,
@@ -109,6 +113,8 @@ public class NRPProblemsStudy {
     List<ExperimentProblem<BinarySolution>> problemList = new ArrayList<>();
     problemList.add(new ExperimentProblem<>(problem1, "NRP1"));
     problemList.add(new ExperimentProblem<>(problem2, "NRP2"));
+    problemList.add(new ExperimentProblem<>(problem3, "NRP3"));
+    problemList.add(new ExperimentProblem<>(problem4, "NRP4"));
 
     List<ExperimentAlgorithm<BinarySolution, List<BinarySolution>>> algorithmList =
             configureAlgorithmList(problemList);
@@ -131,14 +137,13 @@ public class NRPProblemsStudy {
             .setNumberOfCores(8)
             .build();
 
-    new ExecuteAlgorithms<>(experiment).run();
+    //new ExecuteAlgorithms<>(experiment).run();
     new GenerateReferenceParetoFront(experiment).run();
     new ComputeQualityIndicators<>(experiment).run();
     new GenerateLatexTablesWithStatistics(experiment).run();
     new GenerateWilcoxonTestTablesWithR<>(experiment).run();
     new GenerateFriedmanTestTables<>(experiment).run();
-    new GenerateBoxplotsWithR<>(experiment).setRows(1).setColumns(2).setDisplayNotch().run();
-
+    new GenerateBoxplotsWithR<>(experiment).setRows(2).setColumns(2).setDisplayNotch().run();
   }
 
   /**
