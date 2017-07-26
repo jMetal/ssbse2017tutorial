@@ -1,9 +1,9 @@
 package ssbse2017;
 
-import org.uma.jmetal.problem.BinaryProblem;
 import org.uma.jmetal.problem.impl.AbstractBinaryProblem;
 import org.uma.jmetal.solution.BinarySolution;
 
+import java.util.BitSet;
 import java.util.Random;
 import java.util.stream.IntStream;
 
@@ -15,7 +15,7 @@ public class NRPProblem extends AbstractBinaryProblem {
   private int highestImportanceValue ;
   private long randomSeed;
 
-  private int requirements [] ;
+  private int requirementCost[] ;
   private int clientSatisfaction[] ;
   private int importanceMatrix[][] ;
 
@@ -39,14 +39,14 @@ public class NRPProblem extends AbstractBinaryProblem {
 
     Random random = new Random(this.randomSeed) ;
 
-    this.requirements = new int[this.numberOfRequirements] ;
+    this.requirementCost = new int[this.numberOfRequirements] ;
     IntStream
             .range(0, this.numberOfRequirements)
-            .forEach(i -> this.requirements[i] = random.nextInt(this.highestRequirementCost) + 1) ;
+            .forEach(i -> this.requirementCost[i] = random.nextInt(this.highestRequirementCost) + 1) ;
 
     this.clientSatisfaction = new int[this.numberOfClients] ;
     IntStream
-            .range(0, this.highestClientSatisfactionValue)
+            .range(0, this.numberOfClients)
             .forEach(i -> this.clientSatisfaction[i] =
                     random.nextInt(this.highestClientSatisfactionValue) + 1);
 
@@ -64,9 +64,43 @@ public class NRPProblem extends AbstractBinaryProblem {
   }
 
   @Override
-  public void evaluate(BinarySolution binarySolution) {
-
+  public void evaluate(BinarySolution solution) {
+    solution.setObjective(0, computeCost(solution));
+    // satisfaction is a maximization objective: multiply by -1 to minimize
+    solution.setObjective(1, -1.0 * computeSatisfaction(solution));
   }
+
+  private double computeCost(BinarySolution solution) {
+    double result = 0.0 ;
+    BitSet bitset = solution.getVariableValue(0) ;
+
+    for (int i = 0; i < this.numberOfRequirements; i++) {
+      if (bitset.get(i)) {
+        result += requirementCost[i] ;
+      }
+    }
+
+    return result ;
+  }
+
+  private double computeSatisfaction(BinarySolution solution) {
+    double result = 0.0 ;
+    BitSet bitset = solution.getVariableValue(0) ;
+
+    for (int client = 0; client < numberOfClients; client++) {
+      double sum = 0.0 ;
+      for (int i = 0; i < this.numberOfRequirements; i++) {
+        if (bitset.get(i)) {
+          sum += importanceMatrix[client][i] ;
+        }
+      }
+      result += sum * clientSatisfaction[client] ;
+    }
+
+    return result ;
+  }
+
+  /* Getters */
 
   public int getNumberOfRequirements() {
     return numberOfRequirements;
@@ -92,8 +126,8 @@ public class NRPProblem extends AbstractBinaryProblem {
     return randomSeed;
   }
 
-  public int[] getRequirements() {
-    return requirements;
+  public int[] getRequirementCost() {
+    return requirementCost;
   }
 
   public int[] getClientSatisfaction() {
@@ -103,4 +137,28 @@ public class NRPProblem extends AbstractBinaryProblem {
   public int[][] getImportanceMatrix() {
     return importanceMatrix;
   }
+
+  /*
+  public double[] randWeights(int numbers, double sum, int low, int high) {
+    double total = sum ;
+    List<Double> result = new LinkedList<>();
+
+    for (int i = 0; i < numbers; i++) {
+      result.add(low + new Random().nextDouble()
+    }
+
+    def randConstrained(n, m, low, high):
+    tot = m
+    if not low <= 0 <= high:
+        raise ValueError("Cannot guarantee a solution when the input does not allow for 0s")
+    answer = []
+    for _ in range(n-1):
+        answer.append(low + rand(0,tot) * (high-low))
+        tot -= answer[-1]
+    answer.append(m-sum(answer))
+    return answer
+
+    return result ;
+  }
+  */
 }
