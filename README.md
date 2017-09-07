@@ -15,4 +15,4 @@ To run the examples contained in the tutorial you need:
 * Java IDE (I use both Eclipse and IntelliJ Idea)
 * R 
 * Latex
-* Optionally, if you are not an R user (as is my case), a tool to plot results, such as gnuplot, MatLab, Excel
+* Optionally, if you are not an R user (as is my case), a tool to plot results, such as gnuplot, MatLab, Excel, etc.
