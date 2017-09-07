@@ -1,6 +1,7 @@
 # Tutorial "Multiobjective Optimization with the jMetal Framework. Applications to SBSE"
 
 This site contains the stuff used in the tutorial I gave at the SSBSE'17 conference in September 9th 2017. Here you will find:
+
 * The presentation (pdf).
 * The source code used to study the solving of the Next Release Problem.
 * A folder with some preliminary results.
@@ -8,6 +9,7 @@ This site contains the stuff used in the tutorial I gave at the SSBSE'17 confere
 
 ## Requisites
 To run the examples contained in the tutorial you need:
+
 * Java JDK 8
 * Apache Maven
 * Java IDE (I use both Eclipse and IntelliJ Idea)
