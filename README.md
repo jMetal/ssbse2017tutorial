@@ -16,3 +16,5 @@ To run the examples contained in the tutorial you need:
 * R 
 * Latex
 * Optionally, if you are not an R user (as is my case), a tool to plot results, such as gnuplot, MatLab, Excel, etc.
+
+Feel free to contact me if you have any problem or suggestion.
