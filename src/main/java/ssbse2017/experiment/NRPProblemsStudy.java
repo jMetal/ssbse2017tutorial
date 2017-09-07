@@ -72,8 +72,6 @@ public class NRPProblemsStudy {
     }
     String experimentBaseDirectory = args[0];
 
-    int numberOfClients = 15 ;
-    int numberOfRequirements = 40 ;
     int highestClientSatisfactionValue = 10 ;
     int highestRequirementCost = 200 ;
     int highestImportanceValue = 100 ;
@@ -128,7 +126,8 @@ public class NRPProblemsStudy {
             .setOutputParetoSetFileName("VAR")
             .setReferenceFrontDirectory(experimentBaseDirectory+"/referenceFronts")
             .setIndicatorList(Arrays.asList(
-                    new Epsilon<BinarySolution>(), new Spread<BinarySolution>(), new GenerationalDistance<BinarySolution>(),
+                    new Epsilon<BinarySolution>(),
+                    new Spread<BinarySolution>(),
                     new PISAHypervolume<BinarySolution>(),
                     new InvertedGenerationalDistance<BinarySolution>(),
                     new InvertedGenerationalDistancePlus<BinarySolution>())
@@ -137,7 +136,7 @@ public class NRPProblemsStudy {
             .setNumberOfCores(8)
             .build();
 
-    //new ExecuteAlgorithms<>(experiment).run();
+    new ExecuteAlgorithms<>(experiment).run();
     new GenerateReferenceParetoFront(experiment).run();
     new ComputeQualityIndicators<>(experiment).run();
     new GenerateLatexTablesWithStatistics(experiment).run();

@@ -137,28 +137,4 @@ public class NRPProblem extends AbstractBinaryProblem {
   public int[][] getImportanceMatrix() {
     return importanceMatrix;
   }
-
-  /*
-  public double[] randWeights(int numbers, double sum, int low, int high) {
-    double total = sum ;
-    List<Double> result = new LinkedList<>();
-
-    for (int i = 0; i < numbers; i++) {
-      result.add(low + new Random().nextDouble()
-    }
-
-    def randConstrained(n, m, low, high):
-    tot = m
-    if not low <= 0 <= high:
-        raise ValueError("Cannot guarantee a solution when the input does not allow for 0s")
-    answer = []
-    for _ in range(n-1):
-        answer.append(low + rand(0,tot) * (high-low))
-        tot -= answer[-1]
-    answer.append(m-sum(answer))
-    return answer
-
-    return result ;
-  }
-  */
 }
