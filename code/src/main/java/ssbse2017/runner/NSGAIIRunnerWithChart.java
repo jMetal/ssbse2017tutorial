@@ -74,8 +74,6 @@ public class NSGAIIRunnerWithChart {
             .setVariant(NSGAIIBuilder.NSGAIIVariant.Measures)
             .build();
 
-
-
     Front referenceFront = new ArrayFront(1, 2) ;
     double[] referencePoint = {3600, 0} ;
     referenceFront.setPoint(0, new ArrayPoint(referencePoint));

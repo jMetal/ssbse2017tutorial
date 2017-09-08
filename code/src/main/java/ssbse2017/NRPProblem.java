@@ -7,6 +7,11 @@ import java.util.BitSet;
 import java.util.Random;
 import java.util.stream.IntStream;
 
+/**
+ * Class implementing a next release problem generator
+ *
+ * @author Antonio J. Nebro <antonio@lcc.uma.es>
+ */
 public class NRPProblem extends AbstractBinaryProblem {
   private int numberOfRequirements ;
   private int highestClientSatisfactionValue ;

@@ -22,6 +22,11 @@ import java.util.List;
 
 import ssbse2017.NRPProblem;
 
+/**
+ * Class to configure and run the GWASFGA algorithm
+ *
+ * @author Antonio J. Nebro <antonio@lcc.uma.es>
+ */
 public class GWASGFARunner {
   /**
    * @param args Command line arguments.

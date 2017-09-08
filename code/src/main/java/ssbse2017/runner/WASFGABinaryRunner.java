@@ -23,13 +23,6 @@ import java.util.List;
 import ssbse2017.NRPProblem;
 
 public class WASFGABinaryRunner {
-  /**
-   * @param args Command line arguments.
-   * @throws JMetalException
-   * @throws FileNotFoundException
-   * Invoking command:
-  java org.uma.jmetal.runner.multiobjective.WASFGARunner problemName [referenceFront]
-   */
   public static void main(String[] args) throws JMetalException, FileNotFoundException {
     WASFGAMeasures<BinarySolution> algorithm;
     CrossoverOperator<BinarySolution> crossover;

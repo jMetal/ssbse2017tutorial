@@ -26,6 +26,8 @@ import ssbse2017.NRPProblem;
  * "Optimal antenna placement using a new multi-objective chc algorithm".
  * GECCO '07: Proceedings of the 9th annual conference on Genetic and
  * evolutionary computation. London, England. July 2007.
+ * 
+ * @author Antonio J. Nebro <antonio@lcc.uma.es>
  */
 public class MOCHCRunner {
   public static void main(String[] args) throws Exception {
