@@ -1,6 +1,6 @@
 # Tutorial "Multiobjective Optimization with the jMetal Framework. Applications to SBSE"
 
-This site contains the stuff used in the tutorial I gave at the SSBSE'17 conference in September 9th 2017. Here you will find:
+This site contains the stuff used in the tutorial I will give at the SSBSE'17 conference in September 9th 2017. Here you will find:
 
 * The presentation (pdf).
 * The source code used to study the solving of the Next Release Problem.
