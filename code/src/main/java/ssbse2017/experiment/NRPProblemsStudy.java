@@ -64,7 +64,7 @@ import ssbse2017.NRPProblem;
  * @author Antonio J. Nebro <antonio@lcc.uma.es>
  */
 public class NRPProblemsStudy {
-  private static final int INDEPENDENT_RUNS = 10;
+  private static final int INDEPENDENT_RUNS = 20;
 
   public static void main(String[] args) throws IOException {
     if (args.length != 1) {
